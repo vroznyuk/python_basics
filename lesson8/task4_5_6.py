@@ -88,7 +88,7 @@ class Storage:  # Склад
         else:
             # пока не удалось освоить грамотный перенос строк
             units = {key: quantity if (self.unit_in_division.get(division_name)).get(key) is None else (self.unit_in_division.get(division_name)).get(key) + quantity}
-            self.unit_in_division.update({division_name: units})
+            self.unit_in_division.get(division_name).update(units)
 
         # уменьшаем количество на складе
         self.storage_record.update(
@@ -110,6 +110,7 @@ print(storage.storage_record)
 # передали часть в подразделения
 try:
     storage.move_to_division(printer, 2, 'Бухгалтерия')
+    storage.move_to_division(scanner, 1, 'Бухгалтерия')
     storage.move_to_division(xerox, 1, 'Секретариат')
     print('На складе стало:')
     print(storage.storage_record)
